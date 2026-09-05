@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Short-Form Video Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎬 Short-Form Video Generator</h1>
+      <p>Create AI-powered 3-clip videos in minutes</p>
+    </header>
+
+    <main>
+      <section class="form-section">
+        <h2>Create Your Video</h2>
+
+        <form id="videoForm">
+          <!-- Template Selection -->
+          <div class="form-group">
+            <label for="template">Video Template:</label>
+            <select id="template" required>
+              <option value="kids-animation">Kids Animation (Toddler-Friendly)</option>
+              <option value="educational">Educational Explainer</option>
+              <option value="music-video">Music Video</option>
+              <option value="product-demo">Product Demo</option>
+              <option value="comedy">Comedy/Sketch</option>
+              <option value="custom">Custom Template</option>
+            </select>
+          </div>
+
+          <!-- Character/Subject Input -->
+          <div class="form-group">
+            <label for="subject">Character/Subject:</label>
+            <input
+              type="text"
+              id="subject"
+              placeholder="e.g., Happy Bunny, Friendly Robot, Dancing Pizza"
+              required
+            />
+          </div>
+
+          <!-- Theme/Setting -->
+          <div class="form-group">
+            <label for="theme">Theme/Setting:</label>
+            <input
+              type="text"
+              id="theme"
+              placeholder="e.g., Sunny Meadow, Space Station, Magical Forest"
+              required
+            />
+          </div>
+
+          <!-- Lyrics/Text Overlay -->
+          <div class="form-group">
+            <label for="lyrics">Lyrics/Caption Text (for all 3 clips):</label>
+            <textarea
+              id="lyrics"
+              placeholder="Enter the text to appear in your video. Will be split across 3 clips."
+              rows="4"
+              required
+            ></textarea>
+          </div>
+
+          <!-- Style Settings -->
+          <div class="form-group">
+            <label for="style">Art Style:</label>
+            <select id="style">
+              <option value="pixar">Pixar 3D</option>
+              <option value="cartoon-2d">Cartoon 2D</option>
+              <option value="realistic">Realistic</option>
+              <option value="claymation">Claymation</option>
+              <option value="watercolor">Watercolor</option>
+            </select>
+          </div>
+
+          <!-- Tone/Energy Level -->
+          <div class="form-group">
+            <label for="tone">Tone/Energy:</label>
+            <select id="tone">
+              <option value="playful">Playful & Bouncy</option>
+              <option value="calm">Calm & Relaxing</option>
+              <option value="energetic">Energetic & Fast</option>
+              <option value="serious">Serious & Professional</option>
+            </select>
+          </div>
+
+          <!-- Generate Button -->
+          <button type="submit" class="btn-generate">Generate 3-Clip Video</button>
+        </form>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading hidden">
+          <div class="spinner"></div>
+          <p>Generating your video clips... This may take a few minutes.</p>
+          <div class="progress-bar">
+            <div id="progressFill" class="progress-fill"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Section -->
+      <section id="results" class="results-section hidden">
+        <h2>Your Generated Video Clips</h2>
+
+        <div class="clip-container">
+          <div class="clip">
+            <h3>Clip 1: Hook (0:00-0:06)</h3>
+            <video id="clip1" controls></video>
+            <p id="prompt1" class="prompt-display"></p>
+            <button class="btn-download" onclick="downloadClip(1)">Download Clip 1</button>
+          </div>
+
+          <div class="clip">
+            <h3>Clip 2: Build (0:06-0:13)</h3>
+            <video id="clip2" controls></video>
+            <p id="prompt2" class="prompt-display"></p>
+            <button class="btn-download" onclick="downloadClip(2)">Download Clip 2</button>
+          </div>
+
+          <div class="clip">
+            <h3>Clip 3: Loop Close (0:13-0:19)</h3>
+            <video id="clip3" controls></video>
+            <p id="prompt3" class="prompt-display"></p>
+            <button class="btn-download" onclick="downloadClip(3)">Download Clip 3</button>
+          </div>
+        </div>
+
+        <div class="results-actions">
+          <button class="btn-primary" onclick="saveProject()">Save Project</button>
+          <button class="btn-secondary" onclick="generateNew()">Generate Another</button>
+        </div>
+
+        <div class="stitching-guide">
+          <h3>Next Steps: Stitch Your Clips</h3>
+          <ol>
+            <li>Download all 3 clips above</li>
+            <li>Open <strong>CapCut</strong> or <strong>Pika Editor</strong></li>
+            <li>Import clips in order: Clip 1 → Clip 2 → Clip 3</li>
+            <li>Trim last 0.5 seconds of each clip for snappy cuts</li>
+            <li>Add bouncing lyric text overlay (copy-paste from below)</li>
+            <li>Export and upload to TikTok/YouTube Shorts/Instagram Reels</li>
+          </ol>
+          <textarea id="lyricsCopy" readonly rows="3"></textarea>
+          <button class="btn-copy" onclick="copyLyrics()">Copy Lyrics to Clipboard</button>
+        </div>
+      </section>
+
+      <!-- Projects History -->
+      <section id="projects" class="projects-section">
+        <h2>Recent Projects</h2>
+        <div id="projectsList" class="projects-list">
+          <p class="empty-state">No projects yet. Create your first video above!</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
